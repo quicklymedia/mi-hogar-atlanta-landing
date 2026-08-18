@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy-950: #060f2b;
+  --navy-900: #0a1b45;
+  --navy-800: #10265c;
+  --azul: #2f7dff;
+  --azul-claro: #6aa8ff;
+  --celeste: #bfd9ff;
+  --dorado: #e8c15a;
+  --rojo: #e11d48;
+  --rojo-oscuro: #be123c;
+  --crema: #f7f9ff;
+  --tinta: #101828;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-azul: var(--azul);
+  --color-azul-claro: var(--azul-claro);
+  --color-celeste: var(--celeste);
+  --color-dorado: var(--dorado);
+  --color-rojo: var(--rojo);
+  --color-rojo-oscuro: var(--rojo-oscuro);
+  --color-crema: var(--crema);
+  --color-tinta: var(--tinta);
+  --font-display: var(--font-inter);
+  --font-sans: var(--font-inter);
+  --font-grotesk: var(--font-space-grotesk);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--navy-950);
+  color: #fff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  touch-action: manipulation;
+}
+
+.font-display {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Destello dorado del flyer, reutilizado como divisor de secciones */
+.spark {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--dorado) 35%,
+    #fff6d8 50%,
+    var(--dorado) 65%,
+    transparent
+  );
+}
+.spark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #fff6d8;
+  box-shadow: 0 0 12px 3px rgba(232, 193, 90, 0.8);
+}
+
+/* Bloquea el scroll del fondo mientras el modal está abierto */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Borde "LED" giratorio del eyebrow */
+@property --led-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.led-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--led-angle),
+    rgba(232, 193, 90, 0.35) 0deg 290deg,
+    #e8c15a 320deg,
+    #fff6d8 335deg,
+    #e8c15a 350deg,
+    rgba(232, 193, 90, 0.35) 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .led-ring {
+    animation: led-spin 2.5s linear infinite;
+  }
+  @keyframes led-spin {
+    to {
+      --led-angle: 360deg;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.6s ease-out both;
+  }
+  .rise-2 {
+    animation: rise 0.6s ease-out 0.15s both;
+  }
+  .rise-3 {
+    animation: rise 0.6s ease-out 0.3s both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
