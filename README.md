@@ -89,4 +89,14 @@ El formulario incluye un campo honeypot invisible (`empresa`). Si un bot lo llen
 
 ---
 
-Deploys automáticos: cada push a `main` despliega a producción vía la integración de Vercel con GitHub.
+## Deploys automáticos
+
+Cada push a `main` despliega a producción vía la integración de Vercel con GitHub.
+
+**Importante:** Vercel bloquea (`BLOCKED`) los deployments cuyo autor de commit no pertenece
+al team de Vercel. Antes de commitear en este repo, verifica la identidad de git:
+
+```bash
+git config user.email          # debe ser juan@quicklymedia.com
+git config user.email juan@quicklymedia.com   # si no lo es
+```
