@@ -86,3 +86,7 @@ La foto de fondo del hero es `public/hero-casa-v3.jpg` (usa un nombre de archivo
 ## Antispam
 
 El formulario incluye un campo honeypot invisible (`empresa`). Si un bot lo llena, la API responde éxito pero no reenvía nada a GHL.
+
+---
+
+Deploys automáticos: cada push a `main` despliega a producción vía la integración de Vercel con GitHub.
